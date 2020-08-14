@@ -21,4 +21,24 @@ describe('transfomer', () => {
     `,
     'do not change badge'
   );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' }, 
+    {},
+    `
+    import Button from '@thoughtworks/button';
+  
+    export default () => (
+      <Button>Click me</Button>
+    );
+    `,
+    `
+    import Button from '@thoughtworks/button/basic-button';
+  
+    export default () => (
+      <Button>Click me</Button>
+    );
+    `,
+    'split button package to smaller chunks'
+  );
 })
