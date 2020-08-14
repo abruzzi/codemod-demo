@@ -1,4 +1,6 @@
-import { defineInlineTest } from 'jscodeshift/dist/testUtils';
+jest.autoMockOff();
+
+import { defineInlineTest, defineTest } from 'jscodeshift/dist/testUtils';
 import transformer from '../transformer';
 
 describe('transfomer', () => {
@@ -41,4 +43,6 @@ describe('transfomer', () => {
     `,
     'split button package to smaller chunks'
   );
-})
+});
+
+defineTest(__dirname, 'transformer', null, 'button', { parser: "tsx" });

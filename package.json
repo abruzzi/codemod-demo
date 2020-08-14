@@ -8,13 +8,15 @@
   },
   "jest": {
     "transform": {
-      "^.+\\.ts?$": "ts-jest"
+      "^.+\\.ts?$": "ts-jest",
+      "^.+\\.tsx?$": "ts-jest"
     }
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/jscodeshift": "^0.7.1",
     "jscodeshift": "^0.10.0",
     "typescript": "^3.9.7"
   },
