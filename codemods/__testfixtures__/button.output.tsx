@@ -1,6 +1,7 @@
-import Button from '@thoughtworks/button/basic-button';
-import { ButtonProps } from '@thoughtworks/button/types';
+import FancyButton from '@thoughtworks/button/basic-button';
+import { ButtonProps as FancyButtonProps } from '@thoughtworks/button/types';
+import { ButtonColors } from '@thoughtworks/button/constants';
 
-export default () => (
-  <Button>Click me</Button>
+export default (props: FancyButtonProps) => (
+  <FancyButton {...props}>Click me</FancyButton>
 );
