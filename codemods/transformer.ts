@@ -10,7 +10,7 @@ const replaceImportStatementFor = (pkg: string, convertMap: any) => (j: JSCodesh
 
       const defaultDeclarations = defaultSpecifier.map(s => {
         const localName = s.local.name;
-        return j.importDeclaration([s], j.literal(convertMap[localName]));
+        return j.importDeclaration([s], j.literal(convertMap['default']));
       })
 
       const otherSpecifier = path.value.specifiers.filter(
@@ -21,7 +21,11 @@ const replaceImportStatementFor = (pkg: string, convertMap: any) => (j: JSCodesh
 
       const otherDeclarations = otherSpecifier.map(s => {
         const localName = s.local.name;
-        return j.importDeclaration([s], j.literal(convertMap[localName]))
+        if(convertMap[localName]) {
+          return j.importDeclaration([s], j.literal(convertMap[localName]))
+        } else {
+          return j.importDeclaration([s], j.literal(convertMap['*']))
+        }
       });
 
       j(path).insertAfter(otherDeclarations);
@@ -37,6 +41,8 @@ export default (fileInfo: FileInfo, api: API, options: Options) => {
     'FancyButton': '@thoughtworks/button/basic-button',
     'FancyButtonProps': '@thoughtworks/button/types',
     'ButtonColors': '@thoughtworks/button/constants',
+    'default': '@thoughtworks/button/basic-button',
+    '*': '@thoughtworks/button'
   }
  
   const replace = replaceImportStatementFor('@thoughtworks/button', convertMap);
