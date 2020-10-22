@@ -12,6 +12,30 @@ const getAttributesByName = (j: JSCodeshift, element: ASTPath<JSXElement>, name:
       return Boolean(matches.length);
     })
 }
+
+const addPropWhen = (pkg: string, prop: string, defaultValue: any, when: (j: JSCodeshift, root: ASTPath<JSXElement>) => boolean) => (j: JSCodeshift, root: Collection) => {
+    const specifiers = root.find(j.ImportDeclaration)
+        .filter(path => path.node.source.value === pkg)
+        .find(j.ImportDefaultSpecifier);
+
+    if (specifiers.length === 0) {
+        return;
+    }
+
+    const defaultSpecifier = specifiers.nodes()[0].local.name;
+    root
+        .findJSXElements(defaultSpecifier)
+        .forEach((element) => {
+            const node = j.jsxAttribute(j.jsxIdentifier(prop), j.literal(defaultValue));
+            if(when(j, element)) {
+                j(element).find(j.JSXOpeningElement)
+                    .forEach(e => {
+                        e.node.attributes.push(node)
+                    })
+            }
+        })
+}
+
 const renamePropName = (pkg: string, from: string, to: string) => (j: JSCodeshift, root: Collection) => {
   const specifiers = root.find(j.ImportDeclaration)
     .filter(path => path.node.source.value === pkg)
@@ -77,5 +101,6 @@ const createTransformer = (transFuncs: TransformFunc[]) => (fileInfo: FileInfo, 
 export {
   replaceImportStatementFor,
   renamePropName,
+    addPropWhen,
   createTransformer
 }
