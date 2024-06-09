@@ -10,9 +10,9 @@ const removeFeatureToggle = (name: string) => {
 
       if(test.type === 'CallExpression' && test.callee.type === 'Identifier' && test.callee.name === 'featureToggle') {
         if(test.arguments.length === 1 && test.arguments[0].type === 'Literal' && test.arguments[0].value === name) {
-          console.log(`feature toggle ${name} is tested`);
-
-          
+          if(isf.node.consequent.type === 'BlockStatement') {
+            j(isf).replaceWith(isf.node.consequent.body);
+          }
         }
       }
     })

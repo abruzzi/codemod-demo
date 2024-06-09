@@ -34,4 +34,20 @@ describe("transformer", () => {
     `,
     "delete the surrounding if-statement"
   );
+
+  defineInlineTest(
+    transform,
+    {},
+    `
+    if (featureToggle('feature-x')) {
+      console.log('feature is on');
+      console.log('and we should do something meaningful here');
+    }
+    `,
+    `
+    console.log('feature is on');
+    console.log('and we should do something meaningful here');
+    `,
+    "delete the surrounding if-statement multiple lines"
+  );
 });
