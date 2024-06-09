@@ -50,4 +50,16 @@ describe("transformer", () => {
     `,
     "delete the surrounding if-statement multiple lines"
   );
+
+  defineInlineTest(
+    transform,
+    {},
+    `
+    const data = featureToggle('feature-x') ? {name: 'Feature X'} : undefined;
+    `,
+    `
+    const data = {name: 'Feature X'};
+    `,
+    "delete the surrounding conditional operator"
+  );
 });
