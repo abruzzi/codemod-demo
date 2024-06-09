@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/jscodeshift": "^0.7.1",
+    "jest": "^26.0.9",
     "jscodeshift": "^0.10.0",
     "typescript": "^3.9.7"
   },

@@ -1,14 +1,14 @@
 jest.autoMockOff();
 
-import { defineInlineTest } from 'jscodeshift/dist/testUtils';
-import addNewPropWhen from '../migrates/add-new-prop-when';
-import { createTransformer } from '../utils';
+import { defineInlineTest } from "jscodeshift/dist/testUtils";
+import addNewPropWhen from "../migrates/add-new-prop-when";
+import { createTransformer } from "../utils";
 
 const transformer = createTransformer([addNewPropWhen]);
 
-describe('transfomer', () => {
+describe("transfomer", () => {
   defineInlineTest(
-    { default: transformer, parser: 'tsx' }, 
+    { default: transformer, parser: "tsx" },
     {},
     `
     import Button from '@thoughtworks/button';
@@ -24,11 +24,11 @@ describe('transfomer', () => {
       <Button>Click me</Button>
     );
     `,
-    'do not change'
+    "do not change"
   );
 
   defineInlineTest(
-    { default: transformer, parser: 'tsx' }, 
+    { default: transformer, parser: "tsx" },
     {},
     `
     import Button from '@thoughtworks/button';
@@ -44,6 +44,6 @@ describe('transfomer', () => {
       <Button loading title=''>Click me</Button>
     );
     `,
-    'change add title when loading loading is set'
+    "change add title when loading loading is set"
   );
 });
