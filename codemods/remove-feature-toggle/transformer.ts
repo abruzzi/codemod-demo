@@ -23,7 +23,7 @@ const removeFeatureToggle = (name: string) => {
         const test = init.test;
 
         if(test.type === 'CallExpression' && test.callee.type === 'Identifier' && test.callee.name === 'featureToggle') {
-          if(test.arguments.length === 1 && test.arguments[0].type === 'Literal' && test.arguments[0].value === name) {
+          if(test.arguments.length === 1 && (test.arguments[0].type === 'Literal' || test.arguments[0].type === 'StringLiteral') && test.arguments[0].value === name) {
             vd.node.init = init.consequent;
           }
         }
