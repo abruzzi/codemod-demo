@@ -1,10 +1,11 @@
 import { defineInlineTest } from "jscodeshift/src/testUtils";
 
-import { removeFeatureToggle } from "../transformer";
+import { removeFeatureToggle } from "../remove-feature-toggle";
+import { createTransformer } from "../utils";
 
-const transform = removeFeatureToggle("feature-x");
+const transform = createTransformer([removeFeatureToggle("feature-x")]);
 
-describe("transformer", () => {
+describe("remove feature toggle", () => {
   defineInlineTest(
     transform,
     {},
