@@ -9,3 +9,5 @@ const convertNew = (input: string) => {
 }
 
 const result = featureToggle('feature-convert-new') ? convertNew("Hello, world") : convertOld("Hello, world");
+
+console.log(result);

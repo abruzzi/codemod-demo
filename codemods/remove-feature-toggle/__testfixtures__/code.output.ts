@@ -3,3 +3,5 @@ const convertNew = (input: string) => {
 }
 
 const result = convertNew("Hello, world");
+
+console.log(result);
