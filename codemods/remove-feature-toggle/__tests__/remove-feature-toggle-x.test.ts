@@ -63,4 +63,20 @@ describe("remove feature toggle", () => {
     `,
     "delete the surrounding conditional operator"
   );
+
+  defineInlineTest(
+    transform,
+    {},
+    `
+    const func = () => {
+      return featureToggle('feature-x') ? {name: 'Feature X'} : undefined;    
+    }
+    `,
+    `
+    const func = () => {
+      return {name: 'Feature X'};    
+    }
+    `,
+    "delete the surrounding conditional operator in returning"
+  );
 });

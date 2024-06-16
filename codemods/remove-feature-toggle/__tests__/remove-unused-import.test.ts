@@ -44,6 +44,30 @@ describe("remove unused import", () => {
     transform,
     {},
     `
+    import {func} from './library';
+    
+    function convert (input) {
+      console.log('convert string');
+    }
+    
+    export {func, convert};
+    `,
+    `
+    import {func} from './library';
+    
+    function convert (input) {
+      console.log('convert string');
+    }
+    
+    export {func, convert};
+    `,
+    "do not remove import and then export"
+  );
+
+  defineInlineTest(
+    transform,
+    {},
+    `
     import {func, func2} from './library';
     
     func('abc');
