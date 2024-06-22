@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest"
   },
+
   "jest": {
     "transform": {
       "^.+\\.ts?$": "ts-jest",
