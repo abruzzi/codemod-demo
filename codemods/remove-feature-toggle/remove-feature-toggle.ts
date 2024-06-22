@@ -18,9 +18,9 @@ const removeFeatureToggle = (name: string) => {
           ],
         },
       })
-      .forEach((isf) => {
-        if (isf.node.consequent.type === "BlockStatement") {
-          j(isf).replaceWith(isf.node.consequent.body);
+      .forEach((path) => {
+        if (path.node.consequent.type === "BlockStatement") {
+          j(path).replaceWith(path.node.consequent.body);
         }
       });
 

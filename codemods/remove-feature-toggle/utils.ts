@@ -8,7 +8,7 @@ const createTransformer =
     const j = api.jscodeshift;
     const root = j(fileInfo.source);
 
-    transform.forEach((tf) => tf(j, root));
+    transform.forEach((transform) => transform(j, root));
     return root.toSource(options.printOptions || { quote: "single" });
   };
 

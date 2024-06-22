@@ -1,4 +1,5 @@
 import {
+  CallExpression,
   Collection,
   JSCodeshift,
   JSXOpeningElement,
@@ -7,11 +8,15 @@ import {
 
 const removeUnusedFunction = (j: JSCodeshift, root: Collection) => {
   const calling = new Set();
-  root.find(j.CallExpression).forEach((path) => {
-    if (path.node.callee.type === "Identifier") {
-      calling.add(path.node.callee.name);
-    }
-  });
+  root
+    .find(j.CallExpression, {
+      callee: { type: "Identifier" },
+    })
+    .forEach((path) => {
+      const node = path.node as CallExpression;
+      const name = (node.callee as any).name;
+      calling.add(name);
+    });
 
   const exporting = new Set();
   root.find(j.ExportNamedDeclaration).forEach((path) => {

@@ -20,7 +20,7 @@ const transform = (fileInfo: FileInfo, api: API, options: Options) => {
     removeFeatureToggleTransform,
     removeUnusedImport,
     removeUnusedFunction,
-  ].forEach((tf) => tf(j, root));
+  ].forEach((transform) => transform(j, root));
 
   return root.toSource(options.printOptions || { quote: "single" });
 };
